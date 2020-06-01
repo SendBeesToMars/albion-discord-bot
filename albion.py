@@ -23,7 +23,6 @@ def search(arg1=None, arg2=None):
         print(req)
         if req.status_code == 200:
             if arg1 == "-p":
-                # return json.dumps(take(3, req.json()["players"]), indent=4)
                 player_dict = {}
                 for player in req.json()["players"]:
                     player_dict[player["Name"]] = { 
@@ -38,9 +37,6 @@ def search(arg1=None, arg2=None):
                         }
                 
                 return json.dumps(discord_len_check(dict_filter(player_dict), 10), indent=4)
-                # return json.dumps(dict_filter(player_dict), indent=4)
-                # return json.dumps(player_dict, indent=4)
-                # return json.dumps(req.json()["players"][0]["Id"], indent=4)
             elif arg1 == "-g":
                 guild_dict = {}
                 for guild in req.json()["guilds"]:
@@ -52,13 +48,9 @@ def search(arg1=None, arg2=None):
                         "DeathFame": guild["DeathFame"]
                     }
                 return json.dumps(discord_len_check(dict_filter(guild_dict), 10), indent=4)
-                # if len(json.dumps(take(req.json()["guilds"], 10), indent=4)) < 2000:
-                #     return json.dumps(take(req.json()["guilds"], 10), indent=4)
-                # else:
-                #     return json.dumps(take(req.json()["guilds"], 8), indent=4)
 
     else:
-        return "shits fooked! error code: " + str(req.status_code) + ", meaning that you should try again ;)"
+        return "error code: " + str(req.status_code)
 
     # returns first i items from dict
 def take(dict, i):
@@ -83,7 +75,3 @@ def discord_len_check(dict, i):
         discord_len_check(dict, i)
     else:
         return pairs
-
-# print(search("-g", "band"))
-# print(search("-g", "band"))
-# search("-p", "winmi")
